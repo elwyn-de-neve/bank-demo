@@ -1,24 +1,24 @@
 /*
-Casus
+Casus - Bank
 Wij zijn een bank en we hebben meerdere klanten die graag een bedrag van hun account willen opnemen.
 Elke individuele klant wordt vastgelegd in een object en alle klanten gezamenlijk (alle objecten) in een array.
-
 Om geld op te kunnen nemen, moet de combinatie rekeningnummer en pincode overeenkomen (valideren)
 
 Input:
-- Bankrekening nummer
-- Pincode
-- Opname bedrag
+- Rekeningnummer opgeven
+- Pincode opgeven
+- Op te nemen bedrag
 
 Output:
-- Resterende saldo
+- Saldo voor opname
+- Saldo na opname
 
 Stappenplan:
-1. Variabelen declareren voor ingevulde pincode en rekeningnummer en bedrag van opname
-2. Klantgegevens ophalen opv variabelen
-3. Valideren van pincode met rekeningnummer
+1. Variabelen declareren voor ingevulde pincode en rekeningnummer en bedrag
+2. Klantgegevens wilt ophalen obv variabel
+3. Valideren of pincode overeenkomt met rekeningnummer
 4. Bedrag opnemen en saldo bijwerken
-5. Tonen van succesbericht en nieuwe saldo
+5. Tonen van een succesbericht en nieuwe saldo
 */
 
 const bankAccounts = [
@@ -45,41 +45,37 @@ const bankAccounts = [
     },
 ]
 
+// 1. Variabelen declareren voor ingevulde pincode en rekeningnummer en bedrag
 const providedAccountNr = 'NL23INGB0456355891';
 const providedPin = 8316;
-const withDrawel = 50;
+const withDrawel = 100;
 
-for ( let i = 0; i < bankAccounts.length; i++ ) {
-    // Hier komt de code die we herhaaldelijk gaan uitvoeren
+// 2. Klantgegevens wilt ophalen obv variabel
+for ( let i = 0; i < bankAccounts.length; i++) {
+    const currentBankAccount = bankAccounts[i];
 
-    // console.log(bankAccounts[i]);
-    const currentAccount = bankAccounts[i];
+    if (providedAccountNr === currentBankAccount.accountNr) {
+        console.log(`Welkom ${currentBankAccount.name} uw bankrekeningnummer is ${currentBankAccount.accountNr}`);
+        // Dit is een alternatieve annotatie om bovenstaande te loggen >> console.log('Welkom ' + currentBankAccount.name + ' uw bankrekeningnummer is ' + currentBankAccount.accountNr );
 
-    if ( providedAccountNr === currentAccount.accountNr ) {
-        // Rekeningnummer komt overeen
-        console.log( `Welkom ${currentAccount.name} uw bankrekeningnummer is ${currentAccount.accountNr}` )
+        // 3. Valideren of pincode overeenkomt met rekeningnummer
+        if (providedPin === currentBankAccount.pin) {
+            console.log('Pincode is juist');
+            console.log(`Uw saldo was ${currentBankAccount.saldo} euro`);
+            // 4. Bedrag opnemen en saldo bijwerken
+            currentBankAccount.saldo = currentBankAccount.saldo - withDrawel;
 
-        if (providedPin === currentAccount.pin) {
-            console.log(`Uw saldo was: ${currentAccount.saldo}`);
-            currentAccount.saldo = currentAccount.saldo - withDrawel;
-            console.log(`Uw nieuwe saldo is: ${currentAccount.saldo}`)
+            // 5. Tonen van een succesbericht en nieuwe saldo
+            console.log(`Bedankt voor uw opname van ${withDrawel}, uw nieuwe saldo is ${currentBankAccount.saldo} euro`);
+
         } else {
-            console.log(`Uw pincode ${providedPin} is onjuist`)
+
+            console.log(`Uw opgegeven pincode van ${providedPin} is onjuist`);
         }
     } else {
-        // Rekeningnummer komt niet overeen
-        // console.log(`Dit is niet uw rekeningnummer: ${currentAccount.accountNr}`)
-    }
 
-/*    if ( providedAccountNr === currentAccount.accountNr && providedPin === currentAccount.pin ) {
-        // Rekeningnummer komt overeen
-        console.log( `Welkom ${ currentAccount.name } uw bankrekeningnummer is ${ currentAccount.accountNr }` )
-        console.log( `Uw saldo was: ${ currentAccount.saldo }` );
-        currentAccount.saldo = currentAccount.saldo - withDrawel;
-        console.log( `Uw nieuwe saldo is: ${ currentAccount.saldo }` )
-    } else {
-        // Rekeningnummer komt niet overeen
-        // console.log(`Dit is niet uw rekeningnummer: ${currentAccount.accountNr}`)
-    }*/
+        // console.log('Bankrekening komt niet overeen');
+    }
 }
+
 
